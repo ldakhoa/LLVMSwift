@@ -198,34 +198,34 @@ extension DIBuilder {
   ///   - splitDWARFPath: The path to the split DWARF file.
   ///   - identity: The identity of the tool that is compiling this source file.
   /// - Returns: A value representing a compilation-unit level scope.
-  public func buildCompileUnit(
-    for language: DWARFSourceLanguage,
-    in file: FileMetadata,
-    kind: DWARFEmissionKind,
-    optimized: Bool = false,
-    splitDebugInlining: Bool = false,
-    debugInfoForProfiling: Bool = false,
-    flags: [String] = [],
-    runtimeVersion: Int = 0,
-    splitDWARFPath: String = "",
-    identity: String = ""
-  ) -> CompileUnitMetadata {
-    let allFlags = flags.joined(separator: " ")
-    guard let cu = LLVMDIBuilderCreateCompileUnit(
-      self.llvm, language.llvm, file.llvm, identity, identity.count,
-      optimized.llvm,
-      allFlags, allFlags.count,
-      UInt32(runtimeVersion),
-      splitDWARFPath, splitDWARFPath.count,
-      kind.llvm,
-      /*DWOId*/0,
-      splitDebugInlining.llvm,
-      debugInfoForProfiling.llvm
-    ) else {
-      fatalError()
-    }
-    return CompileUnitMetadata(llvm: cu)
-  }
+  /*public func buildCompileUnit(*/
+    /*for language: DWARFSourceLanguage,*/
+    /*in file: FileMetadata,*/
+    /*kind: DWARFEmissionKind,*/
+    /*optimized: Bool = false,*/
+    /*splitDebugInlining: Bool = false,*/
+    /*debugInfoForProfiling: Bool = false,*/
+    /*flags: [String] = [],*/
+    /*runtimeVersion: Int = 0,*/
+    /*splitDWARFPath: String = "",*/
+    /*identity: String = ""*/
+  /*) -> CompileUnitMetadata {*/
+    /*let allFlags = flags.joined(separator: " ")*/
+    /*guard let cu = LLVMDIBuilderCreateCompileUnit(*/
+      /*self.llvm, language.llvm, file.llvm, identity, identity.count,*/
+      /*optimized.llvm,*/
+      /*allFlags, allFlags.count,*/
+      /*UInt32(runtimeVersion),*/
+      /*splitDWARFPath, splitDWARFPath.count,*/
+      /*kind.llvm,*/
+      /*[>DWOId<]0,*/
+      /*splitDebugInlining.llvm,*/
+      /*debugInfoForProfiling.llvm*/
+    /*) else {*/
+      /*fatalError()*/
+    /*}*/
+    /*return CompileUnitMetadata(llvm: cu)*/
+  /*}*/
 
   /// Create a file descriptor to hold debugging information for a file.
   ///
@@ -863,17 +863,17 @@ extension DIBuilder {
   ///   - scope: The surrounding context for the typedef.
   ///   - file: File where this type is defined.
   ///   - line: Line number.
-  public func buildTypedef(
-    of type: DIType, name: String, scope: DIScope, file: FileMetadata, line: Int
-  ) -> DIType {
-    guard let ty = LLVMDIBuilderCreateTypedef(
-      self.llvm, type.asMetadata(), name, name.count,
-      file.asMetadata(), UInt32(line), scope.asMetadata())
-    else {
-      fatalError("Failed to allocate metadata")
-    }
-    return DIOpaqueType(llvm: ty)
-  }
+  /*public func buildTypedef(*/
+    /*of type: DIType, name: String, scope: DIScope, file: FileMetadata, line: Int*/
+  /*) -> DIType {*/
+    /*guard let ty = LLVMDIBuilderCreateTypedef(*/
+      /*self.llvm, type.asMetadata(), name, name.count,*/
+      /*file.asMetadata(), UInt32(line), scope.asMetadata())*/
+    /*else {*/
+      /*fatalError("Failed to allocate metadata")*/
+    /*}*/
+    /*return DIOpaqueType(llvm: ty)*/
+  /*}*/
 
   /// Create a debugging information entry to establish inheritance relationship
   /// between two types.
@@ -1112,7 +1112,7 @@ extension DIBuilder {
     }
     return ImportedEntityMetadata(llvm: mod)
   }
-  
+
   /// Create a descriptor for an imported function.
   ///
   /// - Parameters:
@@ -1128,7 +1128,7 @@ extension DIBuilder {
   ) -> ImportedEntityMetadata {
     guard let mod = LLVMDIBuilderCreateImportedDeclaration(
       self.llvm, context.asMetadata(),
-      declaration.asMetadata(), 
+      declaration.asMetadata(),
       file.asMetadata(), UInt32(line), name, name.count)
     else {
       fatalError("Failed to allocate metadata")
